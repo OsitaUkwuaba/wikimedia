@@ -3,7 +3,7 @@
                         if(isset($_POST['cancel'])){
                             header('Location: canceled.php');
                         }else if(isset($_POST['edit'])){
-                            header('Location: donations_form.php');
+                            header('Location: index.php');
                             
                         }else if(isset($_POST['submit'])){
                             

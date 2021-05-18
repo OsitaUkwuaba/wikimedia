@@ -28,7 +28,7 @@
             
             <ul class="navbar-nav mr-auto justify-content-end">
             <li class = "nav-item active" >
-                <a class = "nav-link" href="donations_form.php"><i class="fas fa-home " aria-hidden="true"></i>Home<span class="sr-only">(current)</span></a></li>
+                <a class = "nav-link" href="index.php"><i class="fas fa-home " aria-hidden="true"></i>Home<span class="sr-only">(current)</span></a></li>
                 
             
             

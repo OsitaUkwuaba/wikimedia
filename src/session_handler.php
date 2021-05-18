@@ -22,10 +22,7 @@ if(isset($_POST['preview'])){
         header('Location: preview.php');
         
     }
-                                         
-    
-          
-
+   
         
             
 

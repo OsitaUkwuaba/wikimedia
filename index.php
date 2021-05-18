@@ -1,184 +1,502 @@
-<?php include "includes/db.php"; ob_start(); session_start();?>
+<?php include "includes/header.php"; include('src/session_handler.php')?>
 
-<?php 
-
-if(isset($_POST['login'])){
-    
-    $username = $_POST['email'];
-    
-    $password = $_POST['password'];
-    
-    $username = mysqli_real_escape_string($connection, $username);
-    $password = mysqli_real_escape_string($connection, $password);
-    
-    $query = "SELECT * FROM  users WHERE user_name = '{$username}'";
-    $select_query = mysqli_query($connection, $query);
-    if(!$select_query){
-        die("QUERY FAILED".mysqli_error($connection));
-    }
-    
-    while($row = mysqli_fetch_array($select_query)){
-        
-//        $user_id = $row['user_id'];
-        $db_username = $row['user_name'];
-        $db_password = $row['password'];
-//        $db_firstname = $row['firstname'];
-//        $db_lastname = $row['lastname'];
-        $user_role = $row['user_role'];
-    }
-    
-    if($username != $db_username && $password != $db_password ){
-        
-        header("Location: index.php");
-    }else if($username == $db_username && $password == $db_password){
-        
-        $_SESSION['username'] = $db_username;
-//        $_SESSION['firstname'] = $db_firstname;
-//        $_SESSION['lastname'] = $db_lastname;
-        $_SESSION['user_role'] = $user_role;
-        
-        header("Location: landing.php");
-        
-        
-    } else {
-        header("Location: index.php");
-    }
-}
-
-?>
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>CommonApp</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Novus Admin Panel Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
-SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- Bootstrap Core CSS -->
-<link href="css1/bootstrap.css" rel='stylesheet' type='text/css' />
-<!-- Custom CSS -->
-<link href="css1/style.css" rel='stylesheet' type='text/css' />
-<!-- font CSS -->
-<!-- font-awesome icons -->
-<link href="css1/font-awesome.css" rel="stylesheet"> 
-<!-- //font-awesome icons -->
- <!-- js-->
-<script src="js/jquery-1.11.1.min.js"></script>
-<script src="js/modernizr.custom.js"></script>
-<!--webfonts-->
-<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<!--//webfonts--> 
-<!--animate-->
-<link href="css1/animate.css" rel="stylesheet" type="text/css" media="all">
-<script src="js/wow.min.js"></script>
-	<script>
-		 new WOW().init();
-	</script>
-<!--//end-animate-->
-<!-- Metis Menu -->
-<script src="js/metisMenu.min.js"></script>
-<script src="js/custom.js"></script>
-<link href="css1/custom.css" rel="stylesheet">
-<!--//Metis Menu -->
-</head> 
-<body class="cbp-spmenu-push">
-	<div class="main-content">
-		
-		<!--left-fixed -navigation-->
-		<!-- header-starts -->
-		<div class="sticky-header header-section ">
-			<div class="header-left">
-				
-				<!--logo -->
-				<div class="logo">
-					<a href="index.php">
-						<h1>COMMON APP</h1>
-						<span>DB PROJECT</span>
-					</a>
-				</div>
-				
-				<div class="clearfix"> </div> 
-			</div>
-			
-				
-						</li>
-					</ul>
-				</div>	
-				<div class="clearfix"> </div>	
-			</div>
-			<div class="clearfix"> </div>	
-		</div>
-		<!-- //header-ends -->
-		<!-- main content start-->
+        <div class="container">
+        <div class = "jumbotron">
+            <div class = "container">
+            
+        <div class="row">
+            
 		<div id="page-wrapper">
-			<div class="main-page login-page ">
-				<h3 class="title1">Sign in</h3>
-				<div class="widget-shadow">
-					<div class="login-top">
-						<h4>Welcome to Common App <br> <a href="signup.php">  Create account »</a> </h4>
-					</div>
-					<div class="login-body">
-						<form action="index.php" method = "post">
-  
-							<input type="text" class="user" name="email" placeholder="Enter your email" required="">
-							<input type="password" name="password" class="lock" placeholder="password">
-							<input type="submit" name="login" value="Sign In">
-							<div class="forgot-grid">
-								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Remember me</label>
-								<div class="forgot">
-									<a href="#">forgot password?</a>
-								</div>
-								<div class="clearfix"> </div>
-							</div>
-						</form>
-					</div>
-				</div>
-				
+            
+            
+            
+        <form action = "<?php echo $_SERVER['PHP_SELF'];?>" method = "post" enctype = "multipart/form-data" class="needs-validation" novalidate>
+        
+            <h3 class="title2">Donor's Personal Information</h3><br>
+
+            <!-- Inputs for first name, middle name and last name  -->
+
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="l_name">Last name</label>
+                      <input type="text" class="form-control" name = "l_name" id="l_name" value = "<?php if(isset($_SESSION['l_name'])){echo htmlspecialchars($_SESSION['l_name']) ?? '';} ?>" placeholder="Last name"  required>
+                        <div class="error"> 
+                        <?php echo $errors['l_name'] ?? ''; ?>
+                        </div>
 <!--
-				<div class="login-page-bottom">
-					<h5> - OR -</h5>
-					<div class="social-btn"><a href="#"><i class="fa fa-facebook"></i><i>Sign In with Facebook</i></a></div>
-					<div class="social-btn sb-two"><a href="#"><i class="fa fa-twitter"></i><i>Sign In with Twitter</i></a></div>
-				</div>
+                      <div class="invalid-feedback">
+                        Please provide your last name.
+                      </div>
 -->
-			</div>
-		</div>
-		<!--footer-->
-		
-        <!--//footer-->
-	</div>
-	<!-- Classie -->
-		<script src="js/classie.js"></script>
-		<script>
-			var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-				showLeftPush = document.getElementById( 'showLeftPush' ),
-				body = document.body;
-				
-			showLeftPush.onclick = function() {
-				classie.toggle( this, 'active' );
-				classie.toggle( body, 'cbp-spmenu-push-toright' );
-				classie.toggle( menuLeft, 'cbp-spmenu-open' );
-				disableOther( 'showLeftPush' );
-			};
-			
-			function disableOther( button ) {
-				if( button !== 'showLeftPush' ) {
-					classie.toggle( showLeftPush, 'disabled' );
-				}
-			}
-		</script>
-	<!--scrolling js-->
-	<script src="js/jquery.nicescroll.js"></script>
-	<script src="js/scripts.js"></script>
-	<!--//scrolling js-->
-	<!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.js"> </script>
-</body>
-</html>
+                    </div>
+                  
+                    <div class="col-md-6 mb-3">
+                      <label for="f_name">First name</label>
+                      <div class="input-group">
+                        
+                        <input type="text" class="form-control" name ="f_name" id="f_name" value = "<?php if(isset($_SESSION['f_name'])) {echo htmlspecialchars($_SESSION['f_name'])?? '';} ?>" placeholder="First name" aria-describedby="inputGroupPrepend" required>
+                          <div class="error"> 
+                        <?php echo $errors['f_name'] ?? ''; ?>
+                        </div>
+<!--
+                        <div class="invalid-feedback">
+                        Please provide your first name.
+                        </div>
+-->
+                      </div>
+                    </div>
+                  </div>
+
+                
+                    <!-- City state and zip  -->
+
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="s_address">Street address</label>
+                      <input type="text" class="form-control" name = "street" value = "<?php if(isset($_SESSION['street'])){ echo htmlspecialchars($_SESSION['street']) ?? '';}?>" id="street" placeholder="#House number street name "  required>
+                        <div class="error"> 
+                        <?php echo $errors['street'] ?? '' ?>
+                        </div>
+<!--
+                      <div class="invalid-feedback">
+                        Street provide street address.
+                      </div>
+-->
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="validationCustom03">City</label>
+                      <input type="text" class="form-control" name = "city" value = "<?php if(isset($_SESSION['city'])){echo htmlspecialchars($_SESSION['city']) ?? '';}?>" id="validationCustom03" placeholder="Your city of residence" required>
+                        <div class="error"> 
+                        <?php echo $errors['city'] ?? '' ?>
+                        </div>
+<!--
+                      <div class="invalid-feedback">
+                        Please provide a valid city.
+                      </div>
+-->
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="validationCustom04">State/Province</label>
+                      <input type="text" class="form-control" name = "state" value = "<?php if(isset($_SESSION['state'])){echo htmlspecialchars($_SESSION['state']) ?? '';}?>" id="validationCustom04" placeholder="Your state of residence" required>
+                      <div class="error"> 
+                        <?php echo $errors['state'] ?? '' ?>
+                        </div>
+<!--
+                      <div class="invalid-feedback">
+                        Please provide the name of state or province.
+                      </div>
+-->
+                    </div>
+                    <div class="col-md-3 mb-3">
+                    
+                         
+                    <label class="my-1 mr-2" for="country">Country</label>
+                    <select class="custom-select my-1 mr-sm-2" name = "country" value = "<?php if(isset($_SESSION['country'])){echo htmlspecialchars($_SESSION['country']) ?? '';}?>" id="country">
+                                    
+<option value="Nigeria">Nigeria</option>
+<option value="Afganistan">Afghanistan</option>
+<option value="Albania">Albania</option>
+<option value="Algeria">Algeria</option>
+<option value="American Samoa">American Samoa</option>
+<option value="Andorra">Andorra</option>
+<option value="Angola">Angola</option>
+<option value="Anguilla">Anguilla</option>
+<option value="Antigua &amp; Barbuda">Antigua &amp; Barbuda</option>
+<option value="Argentina">Argentina</option>
+<option value="Armenia">Armenia</option>
+<option value="Aruba">Aruba</option>
+<option value="Australia">Australia</option>
+<option value="Austria">Austria</option>
+<option value="Azerbaijan">Azerbaijan</option>
+<option value="Bahamas">Bahamas</option>
+<option value="Bahrain">Bahrain</option>
+<option value="Bangladesh">Bangladesh</option>
+<option value="Barbados">Barbados</option>
+<option value="Belarus">Belarus</option>
+<option value="Belgium">Belgium</option>
+<option value="Belize">Belize</option>
+<option value="Benin">Benin</option>
+<option value="Bermuda">Bermuda</option>
+<option value="Bhutan">Bhutan</option>
+<option value="Bolivia">Bolivia</option>
+<option value="Bonaire">Bonaire</option>
+<option value="Bosnia &amp; Herzegovina">Bosnia &amp; Herzegovina</option>
+<option value="Botswana">Botswana</option>
+<option value="Brazil">Brazil</option>
+<option value="British Indian Ocean Ter">British Indian Ocean Ter</option>
+<option value="Brunei">Brunei</option>
+<option value="Bulgaria">Bulgaria</option>
+<option value="Burkina Faso">Burkina Faso</option>
+<option value="Burundi">Burundi</option>
+<option value="Cambodia">Cambodia</option>
+<option value="Cameroon">Cameroon</option>
+<option value="Canada">Canada</option>
+<option value="Canary Islands">Canary Islands</option>
+<option value="Cape Verde">Cape Verde</option>
+<option value="Cayman Islands">Cayman Islands</option>
+<option value="Central African Republic">Central African Republic</option>
+<option value="Chad">Chad</option>
+<option value="Channel Islands">Channel Islands</option>
+<option value="Chile">Chile</option>
+<option value="China">China</option>
+<option value="Christmas Island">Christmas Island</option>
+<option value="Cocos Island">Cocos Island</option>
+<option value="Colombia">Colombia</option>
+<option value="Comoros">Comoros</option>
+<option value="Congo">Congo</option>
+<option value="Cook Islands">Cook Islands</option>
+<option value="Costa Rica">Costa Rica</option>
+<option value="Cote DIvoire">Cote D'Ivoire</option>
+<option value="Croatia">Croatia</option>
+<option value="Cuba">Cuba</option>
+<option value="Curaco">Curacao</option>
+<option value="Cyprus">Cyprus</option>
+<option value="Czech Republic">Czech Republic</option>
+<option value="Denmark">Denmark</option>
+<option value="Djibouti">Djibouti</option>
+<option value="Dominica">Dominica</option>
+<option value="Dominican Republic">Dominican Republic</option>
+<option value="East Timor">East Timor</option>
+<option value="Ecuador">Ecuador</option>
+<option value="Egypt">Egypt</option>
+<option value="El Salvador">El Salvador</option>
+<option value="Equatorial Guinea">Equatorial Guinea</option>
+<option value="Eritrea">Eritrea</option>
+<option value="Estonia">Estonia</option>
+<option value="Ethiopia">Ethiopia</option>
+<option value="Falkland Islands">Falkland Islands</option>
+<option value="Faroe Islands">Faroe Islands</option>
+<option value="Fiji">Fiji</option>
+<option value="Finland">Finland</option>
+<option value="France">France</option>
+<option value="French Guiana">French Guiana</option>
+<option value="French Polynesia">French Polynesia</option>
+<option value="French Southern Ter">French Southern Ter</option>
+<option value="Gabon">Gabon</option>
+<option value="Gambia">Gambia</option>
+<option value="Georgia">Georgia</option>
+<option value="Germany">Germany</option>
+<option value="Ghana">Ghana</option>
+<option value="Gibraltar">Gibraltar</option>
+<option value="Great Britain">Great Britain</option>
+<option value="Greece">Greece</option>
+<option value="Greenland">Greenland</option>
+<option value="Grenada">Grenada</option>
+<option value="Guadeloupe">Guadeloupe</option>
+<option value="Guam">Guam</option>
+<option value="Guatemala">Guatemala</option>
+<option value="Guinea">Guinea</option>
+<option value="Guyana">Guyana</option>
+<option value="Haiti">Haiti</option>
+<option value="Hawaii">Hawaii</option>
+<option value="Honduras">Honduras</option>
+<option value="Hong Kong">Hong Kong</option>
+<option value="Hungary">Hungary</option>
+<option value="Iceland">Iceland</option>
+<option value="India">India</option>
+<option value="Indonesia">Indonesia</option>
+<option value="Iran">Iran</option>
+<option value="Iraq">Iraq</option>
+<option value="Ireland">Ireland</option>
+<option value="Isle of Man">Isle of Man</option>
+<option value="Israel">Israel</option>
+<option value="Italy">Italy</option>
+<option value="Jamaica">Jamaica</option>
+<option value="Japan">Japan</option>
+<option value="Jordan">Jordan</option>
+<option value="Kazakhstan">Kazakhstan</option>
+<option value="Kenya">Kenya</option>
+<option value="Kiribati">Kiribati</option>
+<option value="Korea North">Korea North</option>
+<option value="Korea Sout">Korea South</option>
+<option value="Kuwait">Kuwait</option>
+<option value="Kyrgyzstan">Kyrgyzstan</option>
+<option value="Laos">Laos</option>
+<option value="Latvia">Latvia</option>
+<option value="Lebanon">Lebanon</option>
+<option value="Lesotho">Lesotho</option>
+<option value="Liberia">Liberia</option>
+<option value="Libya">Libya</option>
+<option value="Liechtenstein">Liechtenstein</option>
+<option value="Lithuania">Lithuania</option>
+<option value="Luxembourg">Luxembourg</option>
+<option value="Macau">Macau</option>
+<option value="Macedonia">Macedonia</option>
+<option value="Madagascar">Madagascar</option>
+<option value="Malaysia">Malaysia</option>
+<option value="Malawi">Malawi</option>
+<option value="Maldives">Maldives</option>
+<option value="Mali">Mali</option>
+<option value="Malta">Malta</option>
+<option value="Marshall Islands">Marshall Islands</option>
+<option value="Martinique">Martinique</option>
+<option value="Mauritania">Mauritania</option>
+<option value="Mauritius">Mauritius</option>
+<option value="Mayotte">Mayotte</option>
+<option value="Mexico">Mexico</option>
+<option value="Midway Islands">Midway Islands</option>
+<option value="Moldova">Moldova</option>
+<option value="Monaco">Monaco</option>
+<option value="Mongolia">Mongolia</option>
+<option value="Montserrat">Montserrat</option>
+<option value="Morocco">Morocco</option>
+<option value="Mozambique">Mozambique</option>
+<option value="Myanmar">Myanmar</option>
+<option value="Nambia">Nambia</option>
+<option value="Nauru">Nauru</option>
+<option value="Nepal">Nepal</option>
+<option value="Netherland Antilles">Netherland Antilles</option>
+<option value="Netherlands">Netherlands (Holland, Europe)</option>
+<option value="Nevis">Nevis</option>
+<option value="New Caledonia">New Caledonia</option>
+<option value="New Zealand">New Zealand</option>
+<option value="Nicaragua">Nicaragua</option>
+<option value="Niger">Niger</option>
+
+<option value="Niue">Niue</option>
+<option value="Norfolk Island">Norfolk Island</option>
+<option value="Norway">Norway</option>
+<option value="Oman">Oman</option>
+<option value="Pakistan">Pakistan</option>
+<option value="Palau Island">Palau Island</option>
+<option value="Palestine">Palestine</option>
+<option value="Panama">Panama</option>
+<option value="Papua New Guinea">Papua New Guinea</option>
+<option value="Paraguay">Paraguay</option>
+<option value="Peru">Peru</option>
+<option value="Phillipines">Philippines</option>
+<option value="Pitcairn Island">Pitcairn Island</option>
+<option value="Poland">Poland</option>
+<option value="Portugal">Portugal</option>
+<option value="Puerto Rico">Puerto Rico</option>
+<option value="Qatar">Qatar</option>
+<option value="Republic of Montenegro">Republic of Montenegro</option>
+<option value="Republic of Serbia">Republic of Serbia</option>
+<option value="Reunion">Reunion</option>
+<option value="Romania">Romania</option>
+<option value="Russia">Russia</option>
+<option value="Rwanda">Rwanda</option>
+<option value="St Barthelemy">St Barthelemy</option>
+<option value="St Eustatius">St Eustatius</option>
+<option value="St Helena">St Helena</option>
+<option value="St Kitts-Nevis">St Kitts-Nevis</option>
+<option value="St Lucia">St Lucia</option>
+<option value="St Maarten">St Maarten</option>
+<option value="St Pierre &amp; Miquelon">St Pierre &amp; Miquelon</option>
+<option value="St Vincent &amp; Grenadines">St Vincent &amp; Grenadines</option>
+<option value="Saipan">Saipan</option>
+<option value="Samoa">Samoa</option>
+<option value="Samoa American">Samoa American</option>
+<option value="San Marino">San Marino</option>
+<option value="Sao Tome &amp; Principe">Sao Tome &amp; Principe</option>
+<option value="Saudi Arabia">Saudi Arabia</option>
+<option value="Senegal">Senegal</option>
+<option value="Serbia">Serbia</option>
+<option value="Seychelles">Seychelles</option>
+<option value="Sierra Leone">Sierra Leone</option>
+<option value="Singapore">Singapore</option>
+<option value="Slovakia">Slovakia</option>
+<option value="Slovenia">Slovenia</option>
+<option value="Solomon Islands">Solomon Islands</option>
+<option value="Somalia">Somalia</option>
+<option value="South Africa">South Africa</option>
+<option value="Spain">Spain</option>
+<option value="Sri Lanka">Sri Lanka</option>
+<option value="Sudan">Sudan</option>
+<option value="Suriname">Suriname</option>
+<option value="Swaziland">Swaziland</option>
+<option value="Sweden">Sweden</option>
+<option value="Switzerland">Switzerland</option>
+<option value="Syria">Syria</option>
+<option value="Tahiti">Tahiti</option>
+<option value="Taiwan">Taiwan</option>
+<option value="Tajikistan">Tajikistan</option>
+<option value="Tanzania">Tanzania</option>
+<option value="Thailand">Thailand</option>
+<option value="Togo">Togo</option>
+<option value="Tokelau">Tokelau</option>
+<option value="Tonga">Tonga</option>
+<option value="Trinidad &amp; Tobago">Trinidad &amp; Tobago</option>
+<option value="Tunisia">Tunisia</option>
+<option value="Turkey">Turkey</option>
+<option value="Turkmenistan">Turkmenistan</option>
+<option value="Turks &amp; Caicos Is">Turks &amp; Caicos Is</option>
+<option value="Tuvalu">Tuvalu</option>
+<option value="Uganda">Uganda</option>
+<option value="Ukraine">Ukraine</option>
+<option value="United Arab Erimates">United Arab Emirates</option>
+<option value="United Kingdom">United Kingdom</option>
+<option value="United States of America">United States of America</option>
+<option value="Uraguay">Uruguay</option>
+<option value="Uzbekistan">Uzbekistan</option>
+<option value="Vanuatu">Vanuatu</option>
+<option value="Vatican City State">Vatican City State</option>
+<option value="Venezuela">Venezuela</option>
+<option value="Vietnam">Vietnam</option>
+<option value="Virgin Islands (Brit)">Virgin Islands (Brit)</option>
+<option value="Virgin Islands (USA)">Virgin Islands (USA)</option>
+<option value="Wake Island">Wake Island</option>
+<option value="Wallis &amp; Futana Is">Wallis &amp; Futana Is</option>
+<option value="Yemen">Yemen</option>
+<option value="Zaire">Zaire</option>
+<option value="Zambia">Zambia</option>
+<option value="Zimbabwe">Zimbabwe</option>
+</select>
+                            
+                     
+                    </div>
+                  
+          
+
+              </div>
+                <!--            Address  -->
+            <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                      <label for="p_code">Postal Code</label>
+                      <div class="input-group">
+                        
+                        <input type="text" class="form-control" name ="postal" value = "<?php if(isset($_SESSION['postal'])){echo htmlspecialchars($_SESSION['postal']) ?? '';} ?>" id="postal" placeholder="Postal Code" aria-describedby="inputGroupPrepend" required>
+                          <div class="error"> 
+                        <?php echo $errors['postal'] ?? '' ?>
+                        </div>
+                
+<!--
+                        <div class="invalid-feedback">
+                        Please provide postal code.
+                        </div>
+-->
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="phone">Phone number</label>
+                      <input type="text" class="form-control" name = "phone" id="phone" value = "<?php if(isset($_SESSION['phone'])){echo htmlspecialchars($_SESSION['phone']) ?? '';} ?>" placeholder="phone number"  required>
+                        <div class="error"> 
+                        <?php echo $errors['phone'] ?? '' ?>
+                        </div>
+<!--
+                      <div class="invalid-feedback">
+                        Please provide your phone number.
+                      </div>
+-->
+                    </div>
+                   <div class="col-md-6 mb-3">
+                      <label for="validationCustom05">Email</label>
+                      <input type="email" class="form-control" name = "email" value = "<?php if(isset($_SESSION['email'])){echo htmlspecialchars($_SESSION['email']) ?? '';}?>" id="validationCustom05" placeholder="Email" required>
+                       <div class="error"> 
+                        <?php echo $errors['email'] ?? '' ?>
+                        </div>
+<!--
+                      <div class="invalid-feedback">
+                        Please provide your email.
+                      </div>
+-->
+                    </div>
+                  <div class="col-md-6 mb-3">
+                     <label class="my-1 mr-2" for="first_choice">Preferred form of contact</label>
+                        <select class="custom-select my-1 mr-sm-2" name = "contact_opt" value = "<?php echo htmlspecialchars($_SESSION['contact_opt']) ?? ''?>" id="contact_opt">
+<!--                            <option selected>Choose...</option>-->
+                            <option value="1">Phone</option>
+                            <option value="2">Email</option>
+                            
+                        </select>
+                    </div>
+                   
+                  </div>
+            
+                <!--Address ends-->
+                <!--                Donation-->
+                <h3 class="title2">Payment Information</h3><br>
+                <div class = "form-row">
+                 <div class="col-md-4 mb-3">
+                     <label class="my-1 mr-2" for="first_choice">Preferred form of payment</label>
+                        <select class="custom-select my-1 mr-sm-2" name = "payment_opt"  value = "<?php if(isset($_SESSION['payment_opt'])){echo htmlspecialchars($_SESSION['payment_opt']) ?? '';}?>" id="payment_opt">
+<!--                            <option selected>Choose...</option>-->
+                            <option value="USD">USD</option>
+                            <option value="Euro">Euro</option>
+                            <option value="Bitcoin">Bitcoin</option>
+                        </select>
+                    </div>
+                 <div class="col-md-4 mb-3">
+                     <label class="my-1 mr-2" for="frequency">Frequency of donation</label>
+                        <select class="custom-select my-1 mr-sm-2" name = "frequency" value = "<?php if(isset($_SESSION['frequency'])){echo htmlspecialchars($_SESSION['frequency']) ?? '';} ?>" id="frequency">
+<!--                            <option selected>Choose...</option>-->
+                            <option value="Monthly">Monthly</option>
+                            <option value="Yearly">Yearly</option>
+                            <option value="One-time">One-time</option>
+                            
+                        </select>
+                    </div>
+                 <div class="col-md-4 mb-3">
+                     <label for="validationCustom05">Amount of donation</label>
+                      <input type="number" class="form-control" name = "amount" value = "<?php if(isset($_SESSION['amount'])){echo htmlspecialchars($_SESSION['amount']) ?? '';}?>" min = "1" id="validationCustom05" placeholder="Amount of donation" required>
+                     <div class="error"> 
+                        <?php echo $errors['amount'] ?? '' ?>
+                        </div>
+<!--
+                      <div class="invalid-feedback">
+                        Please specify amount.
+                      </div>
+-->
+                    </div>
+                
+                
+                </div>
+                <!--                Donation ends-->
+                <div class ="form-row">
+            
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" name ="comment" value = "<?php if(isset($_SESSION['comment'])){echo htmlspecialchars($_SESSION['comment']) ?? '';}?>"  rows="3"></textarea>
+                           
+            </div>
+            <br/>
+<!--            <button class="btn btn-danger float-left" type="submit" name = "cancel" id = "cancel" >Cancel</button>-->
+
+              <button class="btn btn-primary float-right next action-button" type="submit" name = "preview" id = "next" >Preview and donate</button>
+                
+            </form>
+            
+            
+            
+            
+                <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                  'use strict';
+                  window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                      form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                          event.preventDefault();
+                          event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                      }, false);
+                    });
+                  }, false);
+                })();
+                </script>
+
+                        
+                        
+  
+        </div>
+        </div>
+            
+            
+            
+            </div>
+            
+            
+                
+            </div>
+
+        
+      
+        <script src="js/bootstrap.js"></script>
+        <script src="js/main.js"></script>
+    
+        </body>
+        </html>
