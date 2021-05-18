@@ -1,0 +1,244 @@
+/*
+.nowrap {
+    white-space: nowrap;
+}
+
+@media (max-width: 48em) {
+    table .btn {
+        font-size: 0.75rem;
+        font-size: 3.5vw;
+    }
+}
+*/
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
+header {
+  background-color: #F8F8F8;
+}
+
+header ul {
+  margin: 0;
+}
+
+header a,
+header li {
+  padding: 1.4rem 0;
+  color: #777;
+  font-weight: bold;
+}
+
+section#intro-header {
+  background-image: url(../images/landscape2.jpg);
+  background-size: cover;
+}
+
+section#intro-header .wrap-headline {
+  position: relative;
+  padding-top: 20%;
+  padding-bottom: 20%;
+}
+section#intro-header h1,
+section#intro-header h2 {
+  color: #FFF;
+}
+
+section#intro-header h2 {
+  font-size: 1.5rem;
+}
+
+section#intro-header hr {
+  width: 10%;
+  
+  
+}
+
+section#intro-header .btn-secondary {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+}
+
+section#about img {
+    margin-top: 6.5rem;
+    margin-bottom: 5rem;
+    
+}
+
+section#about h3 {
+    margin-top: 10rem;
+}
+
+section#features {
+    background-color: #eef2f5;
+    border-top: 0.1rem solid #e9e9e9;
+    border-bottom: 0.1rem solid #e9e9e9;
+    
+}
+
+section#features * {
+    
+    color: #657C8E;
+}
+
+section#features .feature {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    text-align: center;
+    
+}
+
+section#features .glyphicon {
+  font-size: 2rem;
+}
+
+section#features .glyphicon-heart {
+  color: #E04C4C;
+}
+
+section#features .feature-tag {
+  max-width: 10.7em;
+  display: inline-block;
+  text-align: left;
+  margin-left: 1.5em;
+  font-size: 1.7rem;
+}
+
+section#pricing h3.price-headline {
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+}
+
+section#pricing .white-text {
+  color: #FFF;
+}
+
+section#pricing thead .success {
+  background-color: #78CFBF;
+}
+
+section#pricing thead .info {
+  background-color: #3EC6E0;
+}
+
+section#pricing thead .danger {
+  background-color: #E3536C;
+}
+
+section#pricing tbody .success {
+  background-color: #82DACA;
+}
+
+section#pricing tbody .info {
+  background-color: #53CFE9;
+}
+footer {
+  background-color: #191919;
+  color: #ADADAD;
+  margin-top: 3em;
+}
+
+footer h5,
+footer img {
+  margin-top: 5em;
+  font-weight: bold;
+}
+
+footer address {
+  margin-top: 5em;
+  margin-bottom: 5em;
+  color: #5A5A5A;
+}
+
+footer ul {
+  margin-bottom: 5em;
+}
+
+footer address strong {
+  color: #ADADAD;
+  display: block;
+  padding-bottom: 0.62em;
+}
+
+footer a {
+  font-weight: 300;
+  color: #5A5A5A;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: #FFF;
+}
+section#pricing tbody .danger {
+  background-color: #EB6379;
+}
+
+section#newsletter {
+  border-top: 1px solid #E0E0E0;
+  padding-top: 3.2em;
+  margin-top: 2em;
+  
+}
+
+section#newsletter h4 {
+  padding: 1em;
+}
+
+section#newsletter form {
+  padding: 1em;
+  margin-top: 2em;
+  margin-bottom: 5.5em;
+  
+}
+
+section#contact form {
+  padding-top: 9rem;
+  padding-bottom: 3rem;
+}
+.hidden-element {
+  display: none;
+}
+
+body {
+    padding-top: 3.6em;
+}
+#nav-menu {
+    margin-right: 1rem;
+}
+.dropdown-menu {
+    padding-top: 0;
+    width: 200px !important;
+    height: 150px !important;
+}
+nav form#search {
+  float: right;
+  padding: 0.5em;
+}
+
+#nav-options {
+    margin: 0.5em;
+}
+#nav-options button.thumbnail {
+    margin: 0;
+    padding: 0;
+}
+#nav-options img {
+    max-height: 2.3em;
+    border-radius: 0.3em;
+}
+
+#tweet {
+  margin: 0.5em;
+}
+
+/*
+.navbar {
+  background-color: #2F92CA;
+}
+*/
+
+.navbar-default .navbar-nav > li > a {
+  color: #FFF;
+}
+.navbar-header .navbar-toggle,
+.navbar-default .navbar-toggle:focus {
+  background-color: #57A5D2;
+}
